@@ -15,6 +15,7 @@ ln -s ${BASE}/.screenrc ~/.screenrc
 # .bashrc settings
 grep "\.bashrc\.ext" ~/.bashrc
 if [ $? -ne 0 ]; then
+    echo >> ~/.bashrc
     echo ". ${BASE}/.bashrc.ext" >> ~/.bashrc
 fi
 
