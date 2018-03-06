@@ -114,6 +114,9 @@ map <silent> <F5> :bp<cr>
 map <silent> <F6> :bn<cr>
 nmap gb :ls<CR>:buf
 
+" diffの縦画面設定
+set diffopt+=vertical
+
 
 "-----------------------------------------------------------------------------"
 " GTAGS
