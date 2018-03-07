@@ -116,6 +116,18 @@ nmap gb :ls<CR>:buf
 
 " diffの縦画面設定
 set diffopt+=vertical
+" diff:非アクティブバッファへ反映
+vnoremap <S-p> :diffput<CR>
+" diff:アクティブバッファへの取り込み
+vnoremap  <S-o> :diffget<CR>
+" diff:次の差分へ
+execute "set <M-j>=\ej"
+nnoremap <M-j> ]c
+nnoremap <F8> ]c
+" diff:前の差分へ
+execute "set <M-k>=\ek"
+nnoremap <M-k> [c
+nnoremap <F9> [c
 
 
 "-----------------------------------------------------------------------------"
