@@ -2,16 +2,17 @@
 " dein
 "-----------------------------------------------------------------------------"
 " プラグインが実際にインストールされるディレクトリ
-let s:dein_dir = expand('~/.vim/bundle/dein')
+let s:dein_dir = fnamemodify('~/.vim/bundle/dein', ':p')
 " dein.vim 本体
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+let s:dein_repo_dir = s:dein_dir . 'repos/github.com/Shougo/dein.vim'
 
 " dein.vim がなければ github から落としてくる
+if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' shellescape(s:dein_repo_dir)
+endif
+
 if &runtimepath !~# '/dein.vim'
-    if !isdirectory(s:dein_repo_dir)
-        execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
-    endif
-    execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+    execute 'set runtimepath^=' . s:dein_repo_dir
 endif
 
 " 設定開始
@@ -32,6 +33,9 @@ if dein#load_state(s:dein_dir)
     call dein#end()
     call dein#save_state()
 endif
+
+filetype plugin indent on
+syntax enable
 
 " もし、未インストールものものがあったらインストール
 if dein#check_install()

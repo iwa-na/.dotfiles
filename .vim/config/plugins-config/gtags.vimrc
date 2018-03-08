@@ -10,15 +10,3 @@ map <C-p> :cp<CR>
 "検索項目の下方向へ移動＆表示
 map <C-n> :cn<CR>
 
-if has('gui_running')
-    "" GVimの設定
-    " フォント設定
-    set guifont=Ricty\ Diminished\ 14
-    set linespace=1
-    " ツールバー非表示
-    set guioptions-=T
-else
-    "" vimの設定
-endif
-
-

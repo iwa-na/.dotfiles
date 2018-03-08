@@ -60,12 +60,28 @@ set noerrorbells
 set novisualbell
 set visualbell t_vb=
 
+if has('multi_byte_ime') || has('xim')
+    set iminsert=0 imsearch=0
+    if has('xim') && has('GUI_GTK')
+        " XIMの入力開始キー
+        set imactivatekey=C-space
+    endif
+endif
+
+" IMEの状態をカラー表示
+if has('multi_byte_ime')
+    highlight Cursor guifg=NONE guibg=Green
+    highlight CursorIME guifg=NONE guibg=Purple
+endif
+
 " Windowsでディレクトリパスの区切りに/を使えるようにする
 set shellslash
 
-"TODO:
+" 描画更新間隔
 set updatetime=100
+" swapファイル作成抑止
 set noswapfile
+" カーソル行を強調する
 set cursorline
 
 " □とか○の文字があってもカーソル位置がずれないようにする
@@ -75,11 +91,7 @@ if exists('&ambiwidth')
 endif
 
 " クリップボード有効化
-set clipboard=unnamedplus,autoselect
-
-" 色設定
-set background=dark
-colorscheme hybrid
+set clipboard=unnamed,autoselect
 
 " ステータスライン設定
 set statusline=%F%m%r%h%w\ \ FORMAT=%{&ff}\ \ TYPE=%Y\ \ \%{'ENC='.(&fenc!=''?&fenc:&enc).''}\ \ ASCII=\%03.3b\ \ HEX=\%02.2B\ \ POS=[%04l\/%L,%04v]\ \ %p%%
@@ -131,8 +143,65 @@ nnoremap <F9> [c
 
 
 "-----------------------------------------------------------------------------"
+" vim/gvim個別設定
+"-----------------------------------------------------------------------------"
+if has('gui_running')
+    "" GVimの設定
+    " フォント設定
+    if has('win32') || has('win64')
+        set guifont=MS_Gothic:h9
+        set guifontwide=MS_Gothic:h9
+    else
+        set guifont=Ricty\ Diminished\ 14
+    endif
+    set linespace=1
+
+    " ツールバー非表示
+    set guioptions-=T
+    " メニューバー非表示
+    set guioptions-=m
+
+    " 外部grep
+    set grepprg=grep\ -nH
+
+    " Window位置の保存と復帰
+    let s:infofile = '~/.vim/.vimpos'
+
+    function! s:SaveWindowParam(filename)
+        redir => pos
+        exec 'winpos'
+        redir END
+        let pos = matchstr(pos, 'X[-0-9 ]\+,\s*Y[-0-9 ]\+S')
+        let file = expand(a:filename)
+        let str = []
+        let cmd = 'winpos '.substitute(pos, '[^-9-0 ]', '', 'g')
+        let l = &lines
+        let c = & columns
+        cal add(str, 'set lines='. l.' columns='. c)
+        silent! let ostr = readfile(file)
+        if str != ostr
+            call wirtefile(str, file)
+        endif
+    endfunction
+
+    augroup SaveWindowParam
+        autocmd!
+        execute 'autocmd SaveWindowParam VimLeave * call s:SaveWindowParam("'.s:infofile.'")'
+    augroup END
+
+    if filereadable(expand(s:infofile))
+        execute 'source '.s:infofile
+    endif
+    unlet s:infofile
+else
+    "" vimの設定
+endif
+
+
+"-----------------------------------------------------------------------------"
 " 外部定義ファイル読み込み
 "-----------------------------------------------------------------------------"
+set runtimepath+=~/.vim
 runtime! config/plugins-config/*.vimrc
 
 
@@ -141,4 +210,8 @@ runtime! config/plugins-config/*.vimrc
 "-----------------------------------------------------------------------------"
 " シンタックスハイライト:ON
 syntax on
+
+" 色設定
+set background=dark
+colorscheme hybrid
 
