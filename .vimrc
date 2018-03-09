@@ -8,8 +8,6 @@ filetype plugin indent on
 set ruler
 " 入力中のコマンド表示
 set showcmd
-" バックアップファイル：作成しない
-set nobackup
 " 右下へコマンド表示
 set showcmd
 " インクリメンタルサーチ:ON
@@ -79,10 +77,19 @@ set shellslash
 
 " 描画更新間隔
 set updatetime=100
-" swapファイル作成抑止
-set noswapfile
 " カーソル行を強調する
 set cursorline
+
+" swapファイル作成抑止
+"set noswapfile
+" バックアップファイル：作成する
+set backup
+" バックアップファイル保存先
+set backupdir=~/.vim/tmp
+" アンドゥ履歴を残す
+set undofile
+" アンドゥ履歴バックアップ保存先
+set undodir=~/.vim/tmp
 
 " □とか○の文字があってもカーソル位置がずれないようにする
 " gnome-terminalの場合は効果なし
@@ -140,6 +147,9 @@ nnoremap <F8> ]c
 execute "set <M-k>=\ek"
 nnoremap <M-k> [c
 nnoremap <F9> [c
+
+" キーコードシーケンスが終了するのを待つ時間
+set ttimeoutlen=1
 
 
 "-----------------------------------------------------------------------------"
