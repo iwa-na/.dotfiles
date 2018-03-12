@@ -53,10 +53,10 @@ set expandtab
 " インデント挿入時のタブ幅
 set shiftwidth=4
 
-" エラー時の音とビジュアルレベルの抑止
+" エラー時の音とビジュアルベルの抑止
+set visualbell t_vb=
 set noerrorbells
 set novisualbell
-set visualbell t_vb=
 
 if has('multi_byte_ime') || has('xim')
     set iminsert=0 imsearch=0
@@ -181,16 +181,17 @@ if has('gui_running')
         redir => pos
         exec 'winpos'
         redir END
-        let pos = matchstr(pos, 'X[-0-9 ]\+,\s*Y[-0-9 ]\+S')
+        let pos = matchstr(pos, 'X[-0-9 ]\+,\s*Y[-0-9 ]\+$')
         let file = expand(a:filename)
         let str = []
-        let cmd = 'winpos '.substitute(pos, '[^-9-0 ]', '', 'g')
+        let cmd = 'winpos '.substitute(pos, '[^-0-9 ]', '', 'g')
+        cal add(str, cmd)
         let l = &lines
-        let c = & columns
+        let c = &columns
         cal add(str, 'set lines='. l.' columns='. c)
         silent! let ostr = readfile(file)
         if str != ostr
-            call wirtefile(str, file)
+            call writefile(str, file)
         endif
     endfunction
 
