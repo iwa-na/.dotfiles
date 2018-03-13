@@ -113,7 +113,7 @@ nmap <C-f> :next<CR>
 nmap <C-b> :rewind<CR>
 
 " タブの設定
-set showtabline=2
+set showtabline=1
 nmap <silent> <F3> :tabnext<CR>
 nmap <silent> <F2> :tabprevious<CR> 
 map <F4> :only<CR>:tabo<CR>:tab sball<CR>:call ProgrammingMode()<CR>
