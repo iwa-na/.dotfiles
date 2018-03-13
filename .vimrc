@@ -112,6 +112,9 @@ nmap <C-l> 5l
 nmap <C-f> :next<CR>
 nmap <C-b> :rewind<CR>
 
+" h/lで行移動
+set whichwrap=h,l
+
 " タブの設定
 set showtabline=1
 nmap <silent> <F3> :tabnext<CR>
