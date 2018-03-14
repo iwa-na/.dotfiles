@@ -98,7 +98,11 @@ if exists('&ambiwidth')
 endif
 
 " クリップボード有効化
-set clipboard=unnamedplus,autoselect
+if has("unix")
+    set clipboard=unnamedplus,autoselect
+else
+    set clipboard=unnamed,autoselect
+endif
 
 " ステータスライン設定
 set statusline=%F%m%r%h%w\ \ FORMAT=%{&ff}\ \ TYPE=%Y\ \ \%{'ENC='.(&fenc!=''?&fenc:&enc).''}\ \ ASCII=\%03.3b\ \ HEX=\%02.2B\ \ POS=[%04l\/%L,%04v]\ \ %p%%
