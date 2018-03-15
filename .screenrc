@@ -12,3 +12,6 @@ termcapinfo xterm* 'Co#256:pa#32767:AB=\E[48;5;%dm:AF=\E[38;5;%dm:'
 
 maptimeout 0
 
+# Correspond to scroll in gnome-terminal
+termcapinfo xterm* ti@:te@
+
