@@ -6,3 +6,6 @@ repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'Shougo/vimfiler'
+
+[[plugins]]
+repo = 'junegunn/vim-easy-align'

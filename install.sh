@@ -31,8 +31,6 @@ fi
 #++++++++++++++++++++++++++++++
 # vim plugin settings
 cd ${BASE}/.vim/plugin
-#alignta.vim
-curl -O https://raw.githubusercontent.com/h1mesuke/vim-alignta/master/plugin/alignta.vim
 
 #gtags.vim
 curl -O http://cvs.savannah.gnu.org/viewvc/*checkout*/global/global/gtags.vim
@@ -46,6 +44,7 @@ curl -O https://raw.githubusercontent.com/vim-scripts/taglist.vim/master/plugin/
 #++++++++++++++++++++++++++++++
 # vim color settings
 cd ${BASE}/.vim/colors
+
 # hybrid
 curl -O https://raw.githubusercontent.com/w0ng/vim-hybrid/master/colors/hybrid.vim
 
